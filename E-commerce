@@ -1,0 +1,492 @@
+Setting environment for using XAMPP for Windows.
+S I D@LAPTOP-GUDSPERG c:\xampp
+# mysql -u root
+Welcome to the MariaDB monitor. Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.24-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+
+MariaDB [(none)]&gt; use e_commerce;
+Database changed
+MariaDB [e_commerce]&gt; show tables;
++----------------------+
+| Tables_in_e_commerce |
++----------------------+
+| store |
++----------------------+
+1 row in set (0.001 sec)
+
+MariaDB [e_commerce]&gt; desc store;
++---------+-------------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id | int(11) | NO | PRI | NULL | |
+| name | char(30) | YES | | NULL | |
+| address | varchar(60) | YES | | NULL | |
+| email | varchar(60) | YES | | NULL | |
++---------+-------------+------+-----+---------+-------+
+
+4 rows in set (0.012 sec)
+
+MariaDB [e_commerce]&gt; insert into store
+values(101,&#39;D_mart&#39;,&#39;Dombivali&#39;,&#39;Dom@gmail.com&#39;),(102,&#39;Big_bazar&#39;,&#39;vile
+parle&#39;,&#39;vp@gmail.com&#39;)(103,&#39;Jio_mart&#39;,&#39;airoli&#39;,&#39;al@gmail.com&#39;)(104,&#39;walmart&#39;,&#39;andheri&#39;,&#39;adi@gmail.co
+m&#39;);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to
+your MariaDB server version for the right syntax to use near
+&#39;(103,&#39;Jio_mart&#39;,&#39;airoli&#39;,&#39;al@gmail.com&#39;)(104,&#39;walmart&#39;,&#39;andheri&#39;,&#39;adi@gmail.c...&#39; at line 1
+MariaDB [e_commerce]&gt; insert into store
+values(101,&#39;D_mart&#39;,&#39;Dombivali&#39;,&#39;Dom@gmail.com&#39;),(102,&#39;Big_bazar&#39;,&#39;vile
+parle&#39;,&#39;vp@gmail.com&#39;),(103,&#39;Jio_mart&#39;,&#39;airoli&#39;,&#39;al@gmail.com&#39;),(104,&#39;walmart&#39;,&#39;andheri&#39;,&#39;adi@gmail.c
+om&#39;);
+Query OK, 4 rows affected (0.006 sec)
+Records: 4 Duplicates: 0 Warnings: 0
+
+MariaDB [e_commerce]&gt; select * from store;
++-----+-----------+------------+---------------+
+| id | name | address | email |
++-----+-----------+------------+---------------+
+| 101 | D_mart | Dombivali | Dom@gmail.com |
+| 102 | Big_bazar | vile parle | vp@gmail.com |
+| 103 | Jio_mart | airoli | al@gmail.com |
+| 104 | walmart | andheri | adi@gmail.com |
++-----+-----------+------------+---------------+
+4 rows in set (0.000 sec)
+
+MariaDB [e_commerce]&gt; create table staff(id int primary key,name char(60),post varchar(60),age
+int,salary varchar(60),store_id int,foreign key(store_id) references store(id));
+Query OK, 0 rows affected (0.020 sec)
+
+MariaDB [e_commerce]&gt; desc staff;
++----------+-------------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
+
++----------+-------------+------+-----+---------+-------+
+| id | int(11) | NO | PRI | NULL | |
+| name | char(60) | YES | | NULL | |
+| post | varchar(60) | YES | | NULL | |
+| age | int(11) | YES | | NULL | |
+| salary | varchar(60) | YES | | NULL | |
+| store_id | int(11) | YES | MUL | NULL | |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.010 sec)
+
+MariaDB [e_commerce]&gt; insert into staff values(1011,&#39;jay&#39;,&#39;manager&#39;,22,&#39;50,000&#39;,101);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into staff values(10122,&#39;ram&#39;,&#39;HR&#39;,35,&#39;25,000&#39;,102);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into staff values(1033,&#39;pravin&#39;,&#39;clerk&#39;,29,&#39;15,000&#39;,103);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into staff values(1044,&#39;virat&#39;,&#39;employee&#39;,25,&#39;12,000&#39;,104);
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [e_commerce]&gt; select * from staff;
++-------+--------+----------+------+--------+----------+
+| id | name | post | age | salary | store_id |
++-------+--------+----------+------+--------+----------+
+| 1011 | jay | manager | 22 | 50,000 | 101 |
+| 1033 | pravin | clerk | 29 | 15,000 | 103 |
+| 1044 | virat | employee | 25 | 12,000 | 104 |
+| 10122 | ram | HR | 35 | 25,000 | 102 |
++-------+--------+----------+------+--------+----------+
+
+4 rows in set (0.001 sec)
+
+MariaDB [e_commerce]&gt; update staff set id=1022 where age=35;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1 Changed: 1 Warnings: 0
+
+MariaDB [e_commerce]&gt; select * from staff;
++------+--------+----------+------+--------+----------+
+| id | name | post | age | salary | store_id |
++------+--------+----------+------+--------+----------+
+| 1011 | jay | manager | 22 | 50,000 | 101 |
+| 1022 | ram | HR | 35 | 25,000 | 102 |
+| 1033 | pravin | clerk | 29 | 15,000 | 103 |
+| 1044 | virat | employee | 25 | 12,000 | 104 |
++------+--------+----------+------+--------+----------+
+4 rows in set (0.000 sec)
+
+MariaDB [e_commerce]&gt; create table customer(id int primary key,name char(60),mobile_no
+varchar(60),address varchar(60),store_id int,foreign key(store_id) references store(id));
+Query OK, 0 rows affected (0.018 sec)
+
+MariaDB [e_commerce]&gt; desc customer;
++-----------+-------------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| id | int(11) | NO | PRI | NULL | |
+| name | char(60) | YES | | NULL | |
+| mobile_no | varchar(60) | YES | | NULL | |
+| address | varchar(60) | YES | | NULL | |
+| store_id | int(11) | YES | MUL | NULL | |
++-----------+-------------+------+-----+---------+-------+
+
+5 rows in set (0.010 sec)
+
+MariaDB [e_commerce]&gt; insert into customer values(201,&#39;mohit&#39;,8987645,&#39;kalyan&#39;,101);
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [e_commerce]&gt; insert into customer values(202,&#39;omkar&#39;,8987551,&#39;shahad&#39;,102);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into customer values(203,&#39;lucky&#39;,8987535,&#39;kalva&#39;,103);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into customer values(204,&#39;deep&#39;,8987577,&#39;vikroli&#39;,104);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; select * from customer;
++-----+-------+-----------+---------+----------+
+| id | name | mobile_no | address | store_id |
++-----+-------+-----------+---------+----------+
+| 201 | mohit | 8987645 | kalyan | 101 |
+| 202 | omkar | 8987551 | shahad | 102 |
+| 203 | lucky | 8987535 | kalva | 103 |
+| 204 | deep | 8987577 | vikroli | 104 |
++-----+-------+-----------+---------+----------+
+4 rows in set (0.000 sec)
+
+MariaDB [e_commerce]&gt; create table products(id int primary key,name char(60),price int,quantity
+varchar(60),store_id int,foreign key(store_id) references store(id));
+Query OK, 0 rows affected (0.019 sec)
+
+MariaDB [e_commerce]&gt; desc products;
++----------+-------------+------+-----+---------+-------+
+
+| Field | Type | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id | int(11) | NO | PRI | NULL | |
+| name | char(60) | YES | | NULL | |
+| price | int(11) | YES | | NULL | |
+| quantity | varchar(60) | YES | | NULL | |
+| store_id | int(11) | YES | MUL | NULL | |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.009 sec)
+
+MariaDB [e_commerce]&gt; insert into products values(1021,&#39;shirt&#39;,1499,&#39;10&#39;,101);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into products values(1022,&#39;milk&#39;,144,&#39;14&#39;,101);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into products values(1023,&#39;oil&#39;,1190,&#39;20&#39;,102);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into products values(1024,&#39;chips&#39;,1299,&#39;50&#39;,104);
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [e_commerce]&gt; insert into products values(1025,&#39;jeans&#39;,1899,&#39;5&#39;,103);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into products values(1026,&#39;bags&#39;,1999,&#39;8&#39;,103);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; select * from products;
++------+-------+-------+----------+----------+
+| id | name | price | quantity | store_id |
+
++------+-------+-------+----------+----------+
+| 1021 | shirt | 1499 | 10 | 101 |
+| 1022 | milk | 144 | 14 | 101 |
+| 1023 | oil | 1190 | 20 | 102 |
+| 1024 | chips | 1299 | 50 | 104 |
+| 1025 | jeans | 1899 | 5 | 103 |
+| 1026 | bags | 1999 | 8 | 103 |
++------+-------+-------+----------+----------+
+6 rows in set (0.002 sec)
+
+MariaDB [e_commerce]&gt; create table payments(id int primary key,payment_type
+varchar(60),customer_id int,foreign key(customer_id) references customer(id),product_id int,foreign
+key(product_id) references product(id));
+ERROR 1005 (HY000): Can&#39;t create table `e_commerce`.`payments` (errno: 150 &quot;Foreign key
+constraint is incorrectly formed&quot;)
+MariaDB [e_commerce]&gt; create table payments(id int primary key,payment_type
+varchar(60),customer_id int,foreign key(customer_id) references customer(id),product_id int,foreign
+key(products_id) references products(id));
+ERROR 1072 (42000): Key column &#39;products_id&#39; doesn&#39;t exist in table
+MariaDB [e_commerce]&gt; desc products;
++----------+-------------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id | int(11) | NO | PRI | NULL | |
+| name | char(60) | YES | | NULL | |
+| price | int(11) | YES | | NULL | |
+| quantity | varchar(60) | YES | | NULL | |
+| store_id | int(11) | YES | MUL | NULL | |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.007 sec)
+
+MariaDB [e_commerce]&gt; create table payments(id int primary key,payment_type
+varchar(60),customer_id int,foreign key(customer_id) references customer(id),products_id
+int,foreign key(products_id) references products(id));
+Query OK, 0 rows affected (0.016 sec)
+
+MariaDB [e_commerce]&gt; insert into payments values(3011,&#39;cash&#39;,201,1021);
+Query OK, 1 row affected (0.007 sec)
+
+MariaDB [e_commerce]&gt; insert into payments values(3023,&#39;card&#39;,201,1021);
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [e_commerce]&gt; insert into payments values(3034,&#39;cheque&#39;,204,1021);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into payments values(4045,&#39;UPI&#39;,204,1026);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into payments values(3045,&#39;cash&#39;,204,1026);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into payments values(2555,&#39;cash&#39;,202,1022);
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [e_commerce]&gt; insert into payments values(1099,&#39;card&#39;,202,1023);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into payments values(8898,&#39;card&#39;,203,1024);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into payments values(4508,&#39;UPI&#39;,203,1025);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into payments values(7805,&#39;cheque&#39;,202,1026);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; select from * payments;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to
+your MariaDB server version for the right syntax to use near &#39;from * payments&#39; at line 1
+MariaDB [e_commerce]&gt; select * from payments;
++------+--------------+-------------+-------------+
+| id | payment_type | customer_id | products_id |
++------+--------------+-------------+-------------+
+| 1099 | card | 202 | 1023 |
+| 2555 | cash | 202 | 1022 |
+| 3011 | cash | 201 | 1021 |
+| 3023 | card | 201 | 1021 |
+| 3034 | cheque | 204 | 1021 |
+| 3045 | cash | 204 | 1026 |
+| 4045 | UPI | 204 | 1026 |
+| 4508 | UPI | 203 | 1025 |
+| 7805 | cheque | 202 | 1026 |
+| 8898 | card | 203 | 1024 |
++------+--------------+-------------+-------------+
+10 rows in set (0.001 sec)
+
+MariaDB [e_commerce]&gt; create table shipment(id int primary key,customer_id int,foreign
+key(customer_id) references customer(id),products_id int,foreign key (products_id) references
+products(id),payment_id int,foreign key(payment_id) references payments(id));
+Query OK, 0 rows affected (0.019 sec)
+
+MariaDB [e_commerce]&gt; insert into shipment values(4081,201,1021,3011);
+Query OK, 1 row affected (0.006 sec)
+
+MariaDB [e_commerce]&gt; insert into shipment values(4082,201,1021,3023);
+
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into shipment values(4083,204,1021,3034);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into shipment values(4084,204,1026,4045);
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [e_commerce]&gt; insert into shipment values(5085,204,1026,3045);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into shipment values(5081,202,1022,2555);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into shipment values(5087,202,1023,1099);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into shipment values(5088,203,1024,8898);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into shipment values(6051,203,1025,4508);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; insert into shipment values(6055,202,1026,7508);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails
+(`e_commerce`.`shipment`, CONSTRAINT `shipment_ibfk_3` FOREIGN KEY (`payment_id`)
+REFERENCES `payments` (`id`))
+MariaDB [e_commerce]&gt; insert into shipment values(6055,202,1026,7805);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [e_commerce]&gt; select * from shipment;
++------+-------------+-------------+------------+
+
+| id | customer_id | products_id | payment_id |
++------+-------------+-------------+------------+
+| 4081 | 201 | 1021 | 3011 |
+| 4082 | 201 | 1021 | 3023 |
+| 4083 | 204 | 1021 | 3034 |
+| 4084 | 204 | 1026 | 4045 |
+| 5081 | 202 | 1022 | 2555 |
+| 5085 | 204 | 1026 | 3045 |
+| 5087 | 202 | 1023 | 1099 |
+| 5088 | 203 | 1024 | 8898 |
+| 6051 | 203 | 1025 | 4508 |
+| 6055 | 202 | 1026 | 7805 |
++------+-------------+-------------+------------+
+10 rows in set (0.001 sec)
+
+MariaDB [e_commerce]&gt; desc store;
++---------+-------------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id | int(11) | NO | PRI | NULL | |
+| name | char(30) | YES | | NULL | |
+| address | varchar(60) | YES | | NULL | |
+| email | varchar(60) | YES | | NULL | |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.008 sec)
+
+MariaDB [e_commerce]&gt; select * from store;
++-----+-----------+------------+---------------+
+| id | name | address | email |
++-----+-----------+------------+---------------+
+| 101 | D_mart | Dombivali | Dom@gmail.com |
+
+| 102 | Big_bazar | vile parle | vp@gmail.com |
+| 103 | Jio_mart | airoli | al@gmail.com |
+| 104 | walmart | andheri | adi@gmail.com |
++-----+-----------+------------+---------------+
+4 rows in set (0.004 sec)
+
+MariaDB [e_commerce]&gt; desc staff;
++----------+-------------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id | int(11) | NO | PRI | NULL | |
+| name | char(60) | YES | | NULL | |
+| post | varchar(60) | YES | | NULL | |
+| age | int(11) | YES | | NULL | |
+| salary | varchar(60) | YES | | NULL | |
+| store_id | int(11) | YES | MUL | NULL | |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.007 sec)
+
+MariaDB [e_commerce]&gt; select * from staff;
++------+--------+----------+------+--------+----------+
+| id | name | post | age | salary | store_id |
++------+--------+----------+------+--------+----------+
+| 1011 | jay | manager | 22 | 50,000 | 101 |
+| 1022 | ram | HR | 35 | 25,000 | 102 |
+| 1033 | pravin | clerk | 29 | 15,000 | 103 |
+| 1044 | virat | employee | 25 | 12,000 | 104 |
++------+--------+----------+------+--------+----------+
+4 rows in set (0.003 sec)
+
+MariaDB [e_commerce]&gt; desc customer;
+
++-----------+-------------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| id | int(11) | NO | PRI | NULL | |
+| name | char(60) | YES | | NULL | |
+| mobile_no | varchar(60) | YES | | NULL | |
+| address | varchar(60) | YES | | NULL | |
+| store_id | int(11) | YES | MUL | NULL | |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.007 sec)
+
+MariaDB [e_commerce]&gt; select * from customer;
++-----+-------+-----------+---------+----------+
+| id | name | mobile_no | address | store_id |
++-----+-------+-----------+---------+----------+
+| 201 | mohit | 8987645 | kalyan | 101 |
+| 202 | omkar | 8987551 | shahad | 102 |
+| 203 | lucky | 8987535 | kalva | 103 |
+| 204 | deep | 8987577 | vikroli | 104 |
++-----+-------+-----------+---------+----------+
+4 rows in set (0.000 sec)
+
+MariaDB [e_commerce]&gt; desc products;
++----------+-------------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id | int(11) | NO | PRI | NULL | |
+| name | char(60) | YES | | NULL | |
+| price | int(11) | YES | | NULL | |
+| quantity | varchar(60) | YES | | NULL | |
+| store_id | int(11) | YES | MUL | NULL | |
+
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.007 sec)
+
+MariaDB [e_commerce]&gt; select * from products;
++------+-------+-------+----------+----------+
+| id | name | price | quantity | store_id |
++------+-------+-------+----------+----------+
+| 1021 | shirt | 1499 | 10 | 101 |
+| 1022 | milk | 144 | 14 | 101 |
+| 1023 | oil | 1190 | 20 | 102 |
+| 1024 | chips | 1299 | 50 | 104 |
+| 1025 | jeans | 1899 | 5 | 103 |
+| 1026 | bags | 1999 | 8 | 103 |
++------+-------+-------+----------+----------+
+6 rows in set (0.000 sec)
+
+MariaDB [e_commerce]&gt; desc payments;
++--------------+-------------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| id | int(11) | NO | PRI | NULL | |
+| payment_type | varchar(60) | YES | | NULL | |
+| customer_id | int(11) | YES | MUL | NULL | |
+| products_id | int(11) | YES | MUL | NULL | |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.007 sec)
+
+MariaDB [e_commerce]&gt; select * from payments;
++------+--------------+-------------+-------------+
+| id | payment_type | customer_id | products_id |
++------+--------------+-------------+-------------+
+
+| 1099 | card | 202 | 1023 |
+| 2555 | cash | 202 | 1022 |
+| 3011 | cash | 201 | 1021 |
+| 3023 | card | 201 | 1021 |
+| 3034 | cheque | 204 | 1021 |
+| 3045 | cash | 204 | 1026 |
+| 4045 | UPI | 204 | 1026 |
+| 4508 | UPI | 203 | 1025 |
+| 7805 | cheque | 202 | 1026 |
+| 8898 | card | 203 | 1024 |
++------+--------------+-------------+-------------+
+10 rows in set (0.000 sec)
+
+MariaDB [e_commerce]&gt; desc shipment;
++-------------+---------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------------+---------+------+-----+---------+-------+
+| id | int(11) | NO | PRI | NULL | |
+| customer_id | int(11) | YES | MUL | NULL | |
+| products_id | int(11) | YES | MUL | NULL | |
+| payment_id | int(11) | YES | MUL | NULL | |
++-------------+---------+------+-----+---------+-------+
+4 rows in set (0.007 sec)
+
+MariaDB [e_commerce]&gt; select * from shipment;
++------+-------------+-------------+------------+
+| id | customer_id | products_id | payment_id |
++------+-------------+-------------+------------+
+| 4081 | 201 | 1021 | 3011 |
+| 4082 | 201 | 1021 | 3023 |
+| 4083 | 204 | 1021 | 3034 |
+
+| 4084 | 204 | 1026 | 4045 |
+| 5081 | 202 | 1022 | 2555 |
+| 5085 | 204 | 1026 | 3045 |
+| 5087 | 202 | 1023 | 1099 |
+| 5088 | 203 | 1024 | 8898 |
+| 6051 | 203 | 1025 | 4508 |
+| 6055 | 202 | 1026 | 7805 |
++------+-------------+-------------+------------+
+10 rows in set (0.000 sec)
